@@ -1,0 +1,5 @@
+node_modules/
+.terraform/
+*.zip
+terraform.tfstate
+terraform.tfstate.backup

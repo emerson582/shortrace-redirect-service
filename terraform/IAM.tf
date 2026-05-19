@@ -31,6 +31,13 @@ resource "aws_iam_role_policy" "dynamodb_policy" {
           "dynamodb:GetItem"
         ],
         Resource = aws_dynamodb_table.urls_table.arn
+      },
+      {
+        Effect = "Allow",
+        Action = [
+          "dynamodb:PutItem" # Tu permiso para registrar la métrica
+        ],
+        Resource = aws_dynamodb_table.metrics_table.arn # Apunta a tu tabla
       }
     ]
   })

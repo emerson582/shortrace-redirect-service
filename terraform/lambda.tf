@@ -17,7 +17,7 @@ resource "aws_lambda_function" "redirect_lambda" {
 
   environment {
     variables = {
-      URL_TABLE     = aws_dynamodb_table.urls_table.name
+      URL_TABLE     = data.aws_dynamodb_table.urls_table.name
       METRICS_TABLE = aws_dynamodb_table.metrics_table.name
       REGION        = var.region
     }

@@ -23,7 +23,7 @@ exports.handler = async (event) => {
       new GetItemCommand({
         TableName: process.env.URL_TABLE,
         Key: {
-          code: { S: code }
+          shortCode: { S: code } 
         }
       })
     );

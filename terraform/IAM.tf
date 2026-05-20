@@ -30,7 +30,14 @@ resource "aws_iam_role_policy" "dynamodb_policy" {
         Action = [
           "dynamodb:GetItem"
         ],
-        Resource = aws_dynamodb_table.urls_table.arn
+        Resource = data.aws_dynamodb_table.urls_table.arn
+      },
+      {
+        Effect = "Allow",
+        Action = [
+          "dynamodb:PutItem"
+        ],
+        Resource = aws_dynamodb_table.metrics_table.arn 
       }
     ]
   })

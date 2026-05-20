@@ -1,0 +1,30 @@
+{
+  "name": "shortrace-redirect-service",
+  "version": "1.0.0",
+  "description": "SHORTRACE – Redirect Core microservice",
+  "main": "dist/redirect.handler.js",
+  "type": "commonjs",
+  "scripts": {
+    "clean": "node -e \"const fs=require('fs'); fs.rmSync('dist',{recursive:true,force:true}); fs.rmSync('redirect_url.zip',{force:true});\"",
+    "bundle": "esbuild src/index.js --bundle --platform=node --target=node22 --format=cjs --outdir=dist --external:@aws-sdk/*",
+    "build": "tar -a -c -f redirect_url.zip dist package.json",
+    "compile": "run-s clean bundle build",
+    "tf:init": "terraform init",
+    "tf:apply": "terraform apply -auto-approve -replace=\"module.redirect_service.aws_api_gateway_deployment.deployment\"",
+    "deploy:init": "run-s compile tf:init tf:apply",
+    "deploy": "run-s compile tf:apply"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.1003.0"
+  },
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.161",
+    "@types/node": "^25.3.5",
+    "esbuild": "^0.27.3",
+    "npm-run-all": "^4.1.5",
+    "typescript": "^5.9.3"
+  }
+}
